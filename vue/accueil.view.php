@@ -2,7 +2,7 @@
 <p>Test</p>
 <?php
     $content=ob_get_clean();
-    $titre= "Page d'Accueil";
+    $titre= "Accueil";
     require "vue/template.view.php";
 ?>    
     

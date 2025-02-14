@@ -7,5 +7,13 @@
  */
 
 class Securite {
-    //put your code here
+    public static function verifAccessAdmin(){
+        return (isset($_SESSION['role']) && !empty($_SESSION['role']) && $_SESSION['role'] === "administrateur");
+    }
+    public static function verifAccessPartenaire(){
+        return (isset($_SESSION['role']) && !empty($_SESSION['role']) && $_SESSION['role'] === "partenaire");
+    }
+    public static function isConnected(){
+        return (isset($_SESSION['role']) && !empty($_SESSION['role']));
+    }
 }

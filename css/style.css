@@ -7,11 +7,34 @@ h1 {
 }
 
 .logo img { 
-   height: 85px;
-   transition: transform 0.3s ease;
+   height: 100px;
+   transition: transform 0.5s ease;
 }
 
 .logo img:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
 }
 
+h2 {
+    background-color: rgb(0, 110, 255);
+    border-radius: 40px;
+    text-align: center;
+    color: white;
+    font-size: 28px;
+    margin-top: 32px;
+    margin-bottom: 60px;
+    text-shadow: 2px 2px 3px black;
+}
+
+p{
+    text-align: justify;
+}
+
+footer{
+    background-color: silver;
+    color: white;
+    margin-top: 120px;
+    margin-bottom: 5px;
+    padding: 35px;
+    text-align: center;
+}
