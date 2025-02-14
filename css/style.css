@@ -1,0 +1,17 @@
+h1 { 		
+    margin: auto;
+    color : whitesmoke;  
+    text-align: center;
+    text-shadow: 4px 4px 3px darkblue; 
+    padding: 8px;
+}
+
+.logo img { 
+   height: 85px;
+   transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+    transform: scale(1.1);
+}
+
