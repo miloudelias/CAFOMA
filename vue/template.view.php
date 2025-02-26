@@ -45,20 +45,20 @@
                     <a class="nav-link" href="index.php?action=afficher-profil">Profil</a> 
                     <?php }?>
                 </li>
-                <?php if(Securite::verifAccessPartenaire()){ //is user est un partenaire ?>
+                <?php //if(Securite::verifAccessPartenaire()){ //is user est un partenaire ?>
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?action=administrer-formations">Administrer mes formations</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?action=creer-formation">Créer formation</a>
                     </li>
-                <?php } ?>
+                <?php //} ?>
                 <?php if(Securite::verifAccessAdmin()){ ?>
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?action=administrer-all-formations">Aministration formations</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php?action=administrer-utilisateur">administrer utilisateur</a>
+                        <a class="nav-link" href="index.php?action=administrer-utilisateur">Administration utilisateurs</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?action=creer-partenaire">Créer partenaire</a>

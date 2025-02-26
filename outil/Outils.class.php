@@ -33,6 +33,20 @@ class Outils {
         move_uploaded_file($file['tmp_name'], $target_file);
         return $random."_".$file['name'];
     }
+    
+    public static function ajouterFichiers($fichier, $dir){
+        $nomFichiersAjoutes = [];
+        foreach ($fichier['name'] as $key =>$name) {
+            $random = rand(0, 99999);
+            $target_file = $dir . $random . "_" . ($name);
+            if (move_uploaded_file($fichier['tmp_name'][$key], $target_file)) {
+                $nomFichiersAjoutes[] = $random . "_" . basename($name);
+            } else {
+            throw new Exception("Échec de l'upload du fichier: " . $name);
+            }
+        }
+        return $nomFichiersAjoutes;
+    }
 
     public static function sousChaineTaille($chaine,$taille){
         if(strlen($chaine) >= $taille)

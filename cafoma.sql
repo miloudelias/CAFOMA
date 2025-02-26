@@ -13,8 +13,9 @@ CREATE TABLE Partenaire (
 CREATE TABLE Formation (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255) NOT NULL,
-    description TEXT,
     type VARCHAR(100),
+    description TEXT,
+    contenu TEXT,
     image VARCHAR(255),
     fichiers TEXT,
     partenaire_id INT,
@@ -47,3 +48,4 @@ INSERT INTO Partenaire (nom, description) VALUES
 INSERT INTO Formation (nom, description, type, image, fichiers, partenaire_id) VALUES
 ('Développement Web', 'Formation complète en HTML, CSS, JavaScript et PHP', 'MOOC', 'form-dev-web.jpg', 'cours_web.pdf', 1),
 ('Marketing Digital', 'Stratégies et outils pour le marketing en ligne', 'FOAD', 'form-marketing.jpg', 'marketing_tools.pdf', 2);
+

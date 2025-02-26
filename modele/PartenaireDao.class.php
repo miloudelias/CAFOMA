@@ -27,7 +27,7 @@ class PartenaireDao extends Connexion {
         foreach($partenaireListBd as $partenaireBd){
             $partenaire = new Partenaire($partenaireBd['nom'], $partenaireBd['description']);
             //echo "FormationDao - findAllFormation - f=".$f." formation[idFormation]=".$formation['idFormation']."<br>";
-            $partenaire->setIdPart($partenaireBd['partenaire_id']);
+            $partenaire->setIdPart($partenaireBd['idPart']);
             $partenaireList[]=$partenaire;
         }
         return $partenaireList;
@@ -42,10 +42,10 @@ class PartenaireDao extends Connexion {
         //echo "nb=".$nb."<br>";
         $partenaireBd = $stmt->fetch(PDO::FETCH_ASSOC);
         $stmt->closeCursor();  
-        //Outils::afficherTableau($auteurBd, "findAuteurByIdAuteur auteurBd");
+        Outils::afficherTableau($partenaireBd, "findPartenaireByIdPart partenaireBd");
         $partenaire = new Partenaire($partenaireBd['nom'], $partenaireBd['description']);
         $partenaire->setIdPart($partenaireBd['idPart']);
         return $partenaire;
     }
-    
+          
 }

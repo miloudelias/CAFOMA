@@ -3,16 +3,19 @@
 class Formation implements JsonSerializable {
     private $id;
     private $nom;
+    private $type;
     private $description;
+    private $contenu;
     private $image;
     private $fichiers;
     private $partenaire;
     
-    public function __construct($id, $nom, $description, $type, $image, $fichiers) {
+    public function __construct($id, $nom, $type, $description, $contenu, $image, $fichiers) {
         $this->id = $id;
         $this->nom = $nom;
-        $this->description = $description;
         $this->type = $type;
+        $this->contenu = $contenu;
+        $this->description = $description;
         $this->image = $image;
         $this->fichiers = $fichiers;
     }
@@ -20,10 +23,12 @@ class Formation implements JsonSerializable {
     public function __toString(): string {
         return "Formation[id=" . $this->id
                 . ", nom=" . $this->nom
-                . ", description=" . $this->description
                 .", type=" . $this->type
+                . ", description=" . $this->description
+                . ", contenu=" . $this->contenu
                 . ", image=" . $this->image
                 . ", fichiers=" . $this->fichiers
+                . ", partenaire=" . $this->partenaire->getNom()
                 . "]";
     }
 
@@ -32,8 +37,9 @@ class Formation implements JsonSerializable {
         return [
             'id' => $this->id,
             'nom' => $this->nom,
-            'description' => $this->description,
             'type' => $this->type,
+            'description' => $this->description,
+            'contenu' => $this->contenu,
             'image' => $this->image,
             'fichiers' => $this->fichiers,
             'nomPartenaire' => $this->partenaire->getNom(),
@@ -60,6 +66,10 @@ class Formation implements JsonSerializable {
 
     public function getImage() {
         return $this->image;
+    }
+    
+    public function getContenu() {
+        return $this->contenu;
     }
 
     public function getFichiers() {
@@ -92,6 +102,10 @@ class Formation implements JsonSerializable {
 
     public function setFichiers($fichiers){
         $this->fichiers = $fichiers;
+    }
+    
+    public function setContenu ($contenu) {
+        $this->contenu = $contenu;
     }
 
     public function setPartenaire($partenaire): void {
