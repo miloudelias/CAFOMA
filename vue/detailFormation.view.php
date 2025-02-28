@@ -12,6 +12,13 @@ ob_start();
         <br>
         <h3>Type de formation : <?php echo $formation->getType(); ?></h3>
         <br>
+        <h3>Durée : <?php echo $formation->getDuree(); ?> heures</h3>
+        <br>
+        <h3>Niveau : <?php echo $formation->getNiveau(); ?></h3>
+        <br>
+        <h3>Mode : <?php echo $formation->getMode(); ?></h3>
+        <br>
+        
         
         <h3>Partenaire :
             <a href="index.php?action=afficher-partenaire&idPart=<?php $formation->getPartenaire()->getIdPart(); ?>">
@@ -24,21 +31,6 @@ ob_start();
         <br>
     </div>
     
-    <div class="col-10">
-        <h4>Contenu : </h4>
-        <br>
-        <p><?php echo $formation->getContenu(); ?></p>
-        
-        <?php if (!empty($formation->getFichiers())): ?>
-            <h4>Fichiers :</h4>
-            <ul>
-                <?php foreach (explode(',', $formation->getFichiers()) as $fichier): ?>
-                    <li><a href="public/fichiers/<?php echo trim($fichier); ?>" target="_blank"><?php echo basename($fichier); ?></a></li>
-                <?php endforeach; ?>
-            </ul>
-        <?php endif; ?>
-        
-    </div>
 </div>
 
 

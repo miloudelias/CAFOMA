@@ -3,8 +3,6 @@
 class Outils {
     
     public static function sendMail($destinataire, $sujet, $message){
-        //$headers = "From: xxxxx@gmail.com";
-        //if(mail($destinataire,$sujet,$message,$headers)){
         if(mail($destinataire,$sujet,$message)){
             echo("Mail envoyé");
         } else {

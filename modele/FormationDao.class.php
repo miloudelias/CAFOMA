@@ -29,7 +29,8 @@ class FormationDao extends Connexion {
         $bddFormations = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $stmt->closeCursor();
         foreach($bddFormations as $formation){
-            $f=new Formation($formation['id'], $formation['nom'], $formation['type'], $formation['description'], $formation['contenu'], $formation['image'], $formation['fichiers']);
+            //$fichiers = is_array($formation['fichiers']) ? implode(',', $formation['fichiers']) : $formation['fichiers'];
+            $f=new Formation($formation['id'], $formation['nom'], $formation['type'], $formation['description'], $formation['contenu'], $formation['duree'], $formation['niveau'], $formation['mode'], $formation['image'], $formation['fichiers']);
             $partenaire = $this->partenaireDao->findPartenaireByIdPart($formation['partenaire_id']);
             $f->setPartenaire($partenaire);
             $formations[]=$f;
@@ -44,7 +45,7 @@ class FormationDao extends Connexion {
         $formation = $stmt->fetch(PDO::FETCH_ASSOC);
         $stmt->closeCursor();  
         //echo "id=".$id."<br>";
-        $f=new Formation($formation['id'], $formation['nom'], $formation['type'],$formation['description'], $formation['contenu'], $formation['image'], $formation['fichiers']);
+        $f=new Formation($formation['id'], $formation['nom'], $formation['type'],$formation['description'], $formation['contenu'],$formation['duree'], $formation['niveau'], $formation['mode'], $formation['image'], $formation['fichiers']);
         
         $partenaire = $this->partenaireDao->findPartenaireByIdPart($formation['partenaire_id']);
         $f->setPartenaire($partenaire);
@@ -66,16 +67,19 @@ class FormationDao extends Connexion {
         }
     }
     
-    function creerFormation($nom, $type, $description, $contenu, $image, $fichiers){
+    function creerFormation($nom, $type, $description, $contenu, $duree, $niveau, $mode, $image, $fichiers){
         echo("DAO");
         $pdo = $this->getBdd();
-        $req= "INSERT INTO formation(nom, type, description, contenu, image, fichiers)
-               values (:nom, :type ,:description, :contenu, :image, :fichiers)";
+        $req= "INSERT INTO formation(nom, type, description, contenu, duree, niveau, mode, image, fichiers)
+               values (:nom, :type ,:description, :contenu, :duree, :niveau, :mode, :image, :fichiers)";
         $stmt = $pdo->prepare($req);
         $stmt->bindValue(":nom",$nom,PDO::PARAM_STR);
         $stmt->bindValue(":type",$type,PDO::PARAM_STR);
         $stmt->bindValue(":description",$description,PDO::PARAM_STR);
         $stmt->bindValue(":contenu",$contenu,PDO::PARAM_STR);
+        $stmt->bindValue(":duree", $duree, PDO::PARAM_INT);
+        $stmt->bindValue(":niveau", $niveau, PDO::PARAM_STR);
+        $stmt->bindValue(":mode", $mode, PDO::PARAM_STR);
         $stmt->bindValue(":image",$image,PDO::PARAM_STR);
         $stmt->bindValue(":fichiers",$fichiers,PDO::PARAM_STR);
         $resultat = $stmt->execute();

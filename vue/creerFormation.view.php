@@ -18,7 +18,7 @@ ob_start();
             <option value="FOAD">FOAD (Formation Ouverte A Distance)</option>
         </select>
     </div>
-
+    
     <div class="mb-3">
         <label class="form-label" for="description">Description :</label>
         <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
@@ -27,6 +27,24 @@ ob_start();
     <div class="mb-3">
         <label class="form-label" for="contenu">Contenu de la formation :</label>
         <textarea class="form-control" id="contenu" name="contenu" rows="8" required></textarea>
+    </div>
+      
+    <div class="mb-3">
+        <label class="form-label" for="duree">Durée (en heures) :</label>
+        <input class="form-control" type="number" id="duree" name="duree" min="1" required>
+    </div>
+    
+    <div class="mb-3">
+        <label class="form-label" for="niveau">Niveau :</label>
+        <input class="form-control" type="text" id="niveau" name="niveau" required>
+    </div>
+    
+    <div class="mb-3">
+        <label class="form-label" for="mode">Mode de formation :</label>
+        <select class="form-control" id="mode" name="mode" required>
+            <option value="Formation initiale">Formation initiale</option>
+            <option value="Formation en apprentissage">Formation en apprentissage</option>
+        </select>
     </div>
 
     <div class="mb-3">
@@ -48,8 +66,8 @@ ob_start();
                 </option>
             <?php } ?>                      
         </select>
-    </div>  
-
+    </div>
+    
     <div class="text-center">
         <button class="btn btn-success px-4" type="submit" name="form_ajouter">Créer la formation</button>
     </div>

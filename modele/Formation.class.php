@@ -9,13 +9,19 @@ class Formation implements JsonSerializable {
     private $image;
     private $fichiers;
     private $partenaire;
+    private $duree;
+    private $niveau;
+    private $mode;
     
-    public function __construct($id, $nom, $type, $description, $contenu, $image, $fichiers) {
+    public function __construct($id, $nom, $type, $description, $contenu, $duree, $niveau, $mode, $image, $fichiers) {
         $this->id = $id;
         $this->nom = $nom;
         $this->type = $type;
-        $this->contenu = $contenu;
         $this->description = $description;
+        $this->contenu = $contenu;
+        $this->duree = $duree;
+        $this->niveau = $niveau;
+        $this->mode = $mode;
         $this->image = $image;
         $this->fichiers = $fichiers;
     }
@@ -26,6 +32,9 @@ class Formation implements JsonSerializable {
                 .", type=" . $this->type
                 . ", description=" . $this->description
                 . ", contenu=" . $this->contenu
+                . ", duree=" . $this->duree
+                . ", niveau=" . $this->niveau
+                . ", mode=" . $this->mode
                 . ", image=" . $this->image
                 . ", fichiers=" . $this->fichiers
                 . ", partenaire=" . $this->partenaire->getNom()
@@ -40,11 +49,13 @@ class Formation implements JsonSerializable {
             'type' => $this->type,
             'description' => $this->description,
             'contenu' => $this->contenu,
+            'duree' => $this->duree,
+            'niveau' => $this->niveau,
+            'mode' => $this->mode,
             'image' => $this->image,
             'fichiers' => $this->fichiers,
             'nomPartenaire' => $this->partenaire->getNom(),
-            'idPart' => $this->partenaire->getIdPart()
-                
+            'idPart' => $this->partenaire->getIdPart()        
         ];
     }
     
@@ -108,8 +119,32 @@ class Formation implements JsonSerializable {
         $this->contenu = $contenu;
     }
 
-    public function setPartenaire($partenaire): void {
+    public function setPartenaire($partenaire) {
         $this->partenaire = $partenaire;
+    }
+
+    public function getDuree() {
+        return $this->duree;
+    }
+
+    public function getNiveau() {
+        return $this->niveau;
+    }
+
+    public function getMode() {
+        return $this->mode;
+    }
+
+    public function setDuree($duree) {
+        $this->duree = $duree;
+    }
+
+    public function setNiveau($niveau) {
+        $this->niveau = $niveau;
+    }
+
+    public function setMode($mode) {
+        $this->mode = $mode;
     }
 
 

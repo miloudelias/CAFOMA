@@ -42,7 +42,7 @@ class PartenaireDao extends Connexion {
         //echo "nb=".$nb."<br>";
         $partenaireBd = $stmt->fetch(PDO::FETCH_ASSOC);
         $stmt->closeCursor();  
-        Outils::afficherTableau($partenaireBd, "findPartenaireByIdPart partenaireBd");
+        //Outils::afficherTableau($partenaireBd, "findPartenaireByIdPart partenaireBd");
         $partenaire = new Partenaire($partenaireBd['nom'], $partenaireBd['description']);
         $partenaire->setIdPart($partenaireBd['idPart']);
         return $partenaire;

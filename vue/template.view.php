@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="./css/style.css" type="text/css" media="screen" />
     <title><?php echo $titre ?></title>
 </head>
@@ -29,7 +30,7 @@
                     <a class="nav-link active" aria-current="page" href="index.php">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="index.php?action=afficher-liste">Liste des Formations</a> <?php //Impossible de s'inscrire ?>
+                    <a class="nav-link" href="index.php?action=afficher-liste">Liste des Formations</a> <?php ?>
                 </li>
                 <li class="nav-item">
                     <?php if(!Securite::isConnected()){ //si user est pas connecté ?>
@@ -42,7 +43,7 @@
                     <?php if(!Securite::isConnected()){ //si user est pas connecté ?>
                     <a class="nav-link disabled" aria-disabled="true">Profil</a>
                     <?php } else { //si il est connecté ?>
-                    <a class="nav-link" href="index.php?action=afficher-profil">Profil</a> 
+                    <a class="nav-link" href="index.php?action=afficher-profil">Mon profil</a> 
                     <?php }?>
                 </li>
                 <?php //if(Securite::verifAccessPartenaire()){ //is user est un partenaire ?>
@@ -53,7 +54,7 @@
                         <a class="nav-link" href="index.php?action=creer-formation">Créer formation</a>
                     </li>
                 <?php //} ?>
-                <?php if(Securite::verifAccessAdmin()){ ?>
+                <?php //if(Securite::verifAccessAdmin()){ ?>
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?action=administrer-all-formations">Aministration formations</a>
                     </li>
@@ -63,7 +64,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?action=creer-partenaire">Créer partenaire</a>
                     </li>
-                <?php } ?> 
+                <?php //} ?> 
                 
             </ul>
         </div>
@@ -73,7 +74,7 @@
                 <li class="nav-item"> 
                     <a class="nav-link" href="index.php?action=logout">Se déconnecter</a>
                 <?php } else { ?>
-                    <a class="nav-link" href="index.php?action=login">Login / Sign In</a>
+                    <a class="nav-link" href="index.php?action=login">Login / Register</a>
                 </li>
             </ul>    
                 <?php } ?>    

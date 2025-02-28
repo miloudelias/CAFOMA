@@ -19,6 +19,9 @@ CREATE TABLE Formation (
     image VARCHAR(255),
     fichiers TEXT,
     partenaire_id INT,
+    duree INT,
+    niveau VARCHAR(50),
+    mode VARCHAR(50)
     FOREIGN KEY (partenaire_id) REFERENCES Partenaire(idPart) ON DELETE SET NULL
 );
 
@@ -46,6 +49,9 @@ INSERT INTO Partenaire (nom, description) VALUES
 ('Business School', 'École de commerce spécialisée');
 
 INSERT INTO Formation (nom, description, type, image, fichiers, partenaire_id) VALUES
-('Développement Web', 'Formation complète en HTML, CSS, JavaScript et PHP', 'MOOC', 'form-dev-web.jpg', 'cours_web.pdf', 1),
-('Marketing Digital', 'Stratégies et outils pour le marketing en ligne', 'FOAD', 'form-marketing.jpg', 'marketing_tools.pdf', 2);
+('Développement Web', 'Formation complète en HTML, CSS, JavaScript et PHP', 'MOOC', 'form-dev-web.jpg', 'cours_web.pdf', 1, 30,'Débutant' ,'Formation initiale'),
+('Marketing Digital', 'Stratégies et outils pour le marketing en ligne', 'FOAD', 'form-marketing.jpg', 'marketing_tools.pdf', 2, 45, 'Avancé','Formation en apprentissage');
+
+INSERT INTO Utilisateur (login, password, mail, nom, prenom, role, image, est_valide, clef) VALUES
+('etud1', '$2y$10$EasQR.L.CwIGKUotLQk6KO2K5dAuIWjM1bj1wd5X5uO/IeBF/mlva', 'eliaszaina13@gmail.com', 'Etudiant', 'Test', 'Etudiant', 'public/images/etudiant.png', 1, '67c07c7868df2')
 
