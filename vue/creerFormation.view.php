@@ -54,17 +54,17 @@ ob_start();
 
     <div class="mb-3">
         <label class="form-label" for="fichiers">Fichiers (PDF, ressources) :</label>
-        <input class="form-control" type="file" id="fichiers" name="fichiers[]" multiple accept=".pdf,.doc,.docx" multiple>
+        <input class="form-control" type="file" id="fichiers" name="fichiers[]" multiple accept=".pdf,.doc,.docx,.zip,.mp4" multiple>
     </div>
 
     <div class="mb-3">
         <label class="form-label" for="partenaire_id">Partenaire :</label>
         <select class="form-control" id="partenaire_id" name="idPart" required>
             <?php foreach($partenaireList as $partenaire) { ?>
-                <option value="<?= $partenaire->getIdPart(); ?>">
+                <option value="<?= $partenaire->getIdPartenaire(); ?>">
                     <?= $partenaire->getNom(); ?>
                 </option>
-            <?php } ?>                      
+            <?php } ?>                    
         </select>
     </div>
     

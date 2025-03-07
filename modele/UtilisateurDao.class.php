@@ -145,4 +145,25 @@ class UtilisateurDao extends Connexion {
         return $u;
     }
     
+    function modifierUser($login, $password, $mail, $nom, $prenom, $role, $image, $est_valide) {
+    $pdo = $this->getBdd();
+    $req = "UPDATE utilisateur 
+            SET password = :password, mail = :mail, nom = :nom, prenom = :prenom, 
+                role = :role, image = :image, est_valide = :est_valide
+            WHERE login = :login";
+    $stmt = $pdo->prepare($req);
+    $stmt->bindValue(":login", $login, PDO::PARAM_STR);
+    $stmt->bindValue(":password", password_hash($password, PASSWORD_DEFAULT), PDO::PARAM_STR);
+    $stmt->bindValue(":mail", $mail, PDO::PARAM_STR);
+    $stmt->bindValue(":nom", $nom, PDO::PARAM_STR);
+    $stmt->bindValue(":prenom", $prenom, PDO::PARAM_STR);
+    $stmt->bindValue(":role", $role, PDO::PARAM_STR);
+    $stmt->bindValue(":image", $image, PDO::PARAM_STR);
+    $stmt->bindValue(":est_valide", $est_valide, PDO::PARAM_INT);
+
+    $resultat = $stmt->execute();
+    $stmt->closeCursor();
+    return $resultat;
+    }
+    
 }

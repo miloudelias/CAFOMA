@@ -2,7 +2,7 @@
 
 
 class Partenaire implements JsonSerializable {
-    private $idPart;
+    private $idPartenaire;
     private $nom;
     private $description;
     
@@ -12,7 +12,7 @@ class Partenaire implements JsonSerializable {
     }
     
      public function __toString() {
-        return "Partenaire[idPart=" . $this->idPart
+        return "Partenaire[idPartenaire=" . $this->idPartenaire
                 . ", nom=" . $this->nom
                 . ", description=" . $this->description
                 . "]";
@@ -21,14 +21,14 @@ class Partenaire implements JsonSerializable {
     #[\Override]
     public function jsonSerialize(){
         return[
-            'id' => $this->idPart,
+            'id' => $this->idPartenaire,
             'nom' => $this->nom,
             'description' => $this->description
         ];
     }
 
-    public function getIdPart() {
-        return $this->idPart;
+    public function getIdPartenaire() {
+        return $this->idPartenaire;
     }
 
     public function getNom() {
@@ -39,8 +39,8 @@ class Partenaire implements JsonSerializable {
         return $this->description;
     }
 
-    public function setIdPart($idPart): void {
-        $this->idPart = $idPart;
+    public function setIdPartenaire($idPartenaire): void {
+        $this->idPartenaire = $idPartenaire;
     }
 
     public function setNom($nom): void {

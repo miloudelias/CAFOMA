@@ -46,25 +46,22 @@
                     <a class="nav-link" href="index.php?action=afficher-profil">Mon profil</a> 
                     <?php }?>
                 </li>
-                <?php //if(Securite::verifAccessPartenaire()){ //is user est un partenaire ?>
+                <?php if(Securite::verifAccessPartenaire()|| Securite::verifAccessAdmin()){ //is user est un partenaire ou admin?>
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?action=administrer-formations">Administrer mes formations</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?action=creer-formation">Créer formation</a>
                     </li>
-                <?php //} ?>
-                <?php //if(Securite::verifAccessAdmin()){ ?>
+                <?php } ?>
+                <?php if(Securite::verifAccessAdmin()){ ?>
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?action=administrer-all-formations">Aministration formations</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php?action=administrer-utilisateur">Administration utilisateurs</a>
+                        <a class="nav-link" href="index.php?action=administrer-utilisateur">Administration</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?action=creer-partenaire">Créer partenaire</a>
-                    </li>
-                <?php //} ?> 
+                <?php } ?> 
                 
             </ul>
         </div>

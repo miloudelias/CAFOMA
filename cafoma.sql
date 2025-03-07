@@ -5,7 +5,7 @@ CREATE DATABASE CAFOMABD CHARACTER SET 'utf8';
 USE CAFOMABD;
 
 CREATE TABLE Partenaire (
-    idPart INT AUTO_INCREMENT PRIMARY KEY,
+    idPartenaire INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255) NOT NULL,
     description TEXT
 );
@@ -16,13 +16,13 @@ CREATE TABLE Formation (
     type VARCHAR(100),
     description TEXT,
     contenu TEXT,
-    image VARCHAR(255),
-    fichiers TEXT,
-    partenaire_id INT,
     duree INT,
     niveau VARCHAR(50),
     mode VARCHAR(50)
-    FOREIGN KEY (partenaire_id) REFERENCES Partenaire(idPart) ON DELETE SET NULL
+    image VARCHAR(255),
+    fichiers TEXT,
+    idPart INT,
+    FOREIGN KEY (idPart) REFERENCES Partenaire(idPart) ON DELETE SET NULL
 );
 
 CREATE TABLE Utilisateur (
@@ -53,5 +53,5 @@ INSERT INTO Formation (nom, description, type, image, fichiers, partenaire_id) V
 ('Marketing Digital', 'Stratégies et outils pour le marketing en ligne', 'FOAD', 'form-marketing.jpg', 'marketing_tools.pdf', 2, 45, 'Avancé','Formation en apprentissage');
 
 INSERT INTO Utilisateur (login, password, mail, nom, prenom, role, image, est_valide, clef) VALUES
-('etud1', '$2y$10$EasQR.L.CwIGKUotLQk6KO2K5dAuIWjM1bj1wd5X5uO/IeBF/mlva', 'eliaszaina13@gmail.com', 'Etudiant', 'Test', 'Etudiant', 'public/images/etudiant.png', 1, '67c07c7868df2')
+('etud1', '$2y$10$EasQR.L.CwIGKUotLQk6KO2K5dAuIWjM1bj1wd5X5uO/IeBF/mlva', 'eliaszaina13@gmail.com', 'Etudiant', 'Test', 'Etudiant', 'etudiant.png', 1, '67c07c7868df2')
 

@@ -18,7 +18,7 @@ ob_start();
 
 <?php
 $content = ob_get_clean();
-$titre = "Ajout d'une formation";
+$titre = "Administrer mes formations";
 require "template.view.php";
 ?>
 

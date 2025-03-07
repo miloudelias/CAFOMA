@@ -6,12 +6,13 @@ class Formation implements JsonSerializable {
     private $type;
     private $description;
     private $contenu;
-    private $image;
-    private $fichiers;
-    private $partenaire;
     private $duree;
     private $niveau;
     private $mode;
+    private $image;
+    private $fichiers;
+    private $partenaire;
+   
     
     public function __construct($id, $nom, $type, $description, $contenu, $duree, $niveau, $mode, $image, $fichiers) {
         $this->id = $id;
@@ -55,7 +56,7 @@ class Formation implements JsonSerializable {
             'image' => $this->image,
             'fichiers' => $this->fichiers,
             'nomPartenaire' => $this->partenaire->getNom(),
-            'idPart' => $this->partenaire->getIdPart()        
+            'idPart' => $this->partenaire->getIdPartenaire()        
         ];
     }
     

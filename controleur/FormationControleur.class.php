@@ -17,6 +17,7 @@ class FormationControleur {
     }
     
     function afficherListe(){
+        //echo "controleur";
         $alert = "";
         $formations=$this->formationDao->findAllFormation();
         require "vue/afficherListe.view.php";
@@ -33,16 +34,16 @@ class FormationControleur {
     }
     
     function creerFormation(){ 
-        if(/*Securite::verifAccessPartenaire()*/1){
+        if(Securite::verifAccessPartenaire()|| Securite::verifAccessAdmin()){
             $partenaireList = $this->partenaireDao->findAllPartenaire();
             require "vue/creerformation.view.php";
         }
         else throw new Exception("Vous n'avez pas le droit d'accéder à cette page");
     }
     
-    function creerValidationFormation($nom,$type ,$description, $contenu, $duree, $niveau, $mode, $partenaire_id){
-        if(/*Securite::verifAccessPartenaire()*/1){
-            //echo "controleur";
+    function creerValidationFormation($nom,$type ,$description, $contenu, $duree, $niveau, $mode, $file, $fichier, $idPart){
+        if(Securite::verifAccessPartenaire()|| Securite::verifAccessAdmin()){
+            echo "controleur";
          $file = $_FILES['image'];
             $repertoire = "public/images/";
             $nomImageAjoute = Outils::ajouterImage($file,$repertoire);
@@ -55,7 +56,7 @@ class FormationControleur {
             
             $fichiersJson = json_encode($nomFichiersAjoute);
             
-            $this->formationDao->creerFormation($nom, $type ,$description, $contenu, $duree, $niveau, $mode, $nomImageAjoute, $fichiersJson, $partenaire_id);
+            $this->formationDao->creerFormation($nom, $type ,$description, $contenu, $duree, $niveau, $mode, $nomImageAjoute, $fichiersJson, $idPart);
             
             $_SESSION['success_message'] = "La formation '$nom' a été créée avec succès !";
              //header("Location: index.php?action=administrer-formations");

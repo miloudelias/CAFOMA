@@ -10,7 +10,7 @@
         
         <div class="d-flex flex-column align-items-center mt-4">
             <div class="profile-image mb-3">
-                <img class="rounded-circle border border-primary" width="120px" src="<?= $user->getImage(); ?>" alt="Photo de profil">
+                <img class="rounded-circle border border-primary" width="120px" src="public/images/<?= $user->getImage(); ?>" alt="Photo de profil">
             </div>
             <form method="POST" action="index.php?action=modifier-image" enctype="multipart/form-data" class="mt-2">
                 <label for="image" class="form-label fw-bold">Changer l'image de profil :</label><br>

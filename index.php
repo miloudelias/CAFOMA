@@ -1,12 +1,14 @@
 <?php
 require_once "controleur/FormationControleur.class.php";
 require_once "controleur/UserControleur.class.php";
+require_once "controleur/PartenaireControleur.class.php";
 require_once "outil/Securite.class.php";
 require_once "outil/Outils.class.php";
 
 session_start();
 $formationControleur = new FormationControleur();
 $userControleur = new UserControleur();
+$partenaireControleur = new PartenaireControleur();
 
 try{
     if(empty($_GET['action']) || !isset($_GET['action'])){
@@ -26,6 +28,17 @@ try{
             break;
         
         case "creer-formation-validation": 
+            /*Outils::afficherTableau($_FILES['image'],"image");
+            Outils::afficherTableau($_FILES['fichiers'],"fichiers");
+            var_dump($_POST['nom']." ".
+            $_POST['type']." ".
+            $_POST['description']." ".
+            $_POST['contenu']." ".
+            $_POST['duree']." ".
+            $_POST['niveau']." ".
+            $_POST['mode']." ".
+            $_POST['idPart'] );
+            exit;*/
             $formationControleur->creerValidationFormation(
             $_POST['nom'],
             $_POST['type'],
@@ -43,7 +56,7 @@ try{
         case "supprimer-formation":  $formationControleur->supprimerFormation($_GET['id']);
             break;
         
-        case "administrer-formations":  $formationControleur->administrerFormations();
+        case "administrer-all-formations":  $formationControleur->administrerFormations();
             break;
         
         case "supprimer-formations":  $formationControleur->supprimerFormations($_GET['idPart']);
@@ -75,12 +88,27 @@ try{
         case "administrer-utilisateur": $userControleur->administrerUtilisateur();
             break;
         
-        case "creer-user-partenaire": $userControleur->creerCompte();
+        case "modifier-user": $userControleur->modifierUser();
+            break;
+        
+        
+        case "creer-user-partenaire": $userControleur->creerComptePart();
             break;
         
         case "creer-user-partenaire-valid": $userControleur->creerPartenaireValidation($_POST['login'], $_POST['mail'], $_POST['password'], $_POST['nom'], $_POST['prenom']);
             break;
         
+        case "creer-partenaire": $partenaireControleur->creerPartenaire();
+            break;
+        
+        case "creer-partenaire-validation": $partenaireControleur->creerPartenaireValidation($_POST['nom'], $_POST['description']); 
+            break;
+        
+        case "afficher-partenaire": $partenaireControleur->lirePartenaire($_GET['idPart']);
+            break;
+        
+        case "gerer-partenaire": $partenaireControleur->gererPartenaire();
+            break;
         
     }
 } catch (Exception $ex) {

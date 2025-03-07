@@ -24,7 +24,7 @@ ob_start();
             <img height="350px" src="public/images/<?php echo $formation->getImage(); ?>" class="card-image" alt="image">
             <div class="card-body">
                 <h5 class="card-title"><?php echo Outils::sousChaineTaille($formation->getNom(), 20); ?></h5>
-                <p><a href="index.php?action=afficher-partenaire&idPart=<?php echo $formation->getPartenaire()->getIdPart(); ?>"><?= $formation->getPartenaire()->getNom(); ?></a></p>
+                <p><a href="index.php?action=afficher-partenaire&idPart=<?php echo $formation->getPartenaire()->getIdPartenaire(); ?>"><?= $formation->getPartenaire()->getNom(); ?></a></p>
                 <a href="index.php?action=detail-formation&id=<?php echo $formation->getId(); ?>" class="btn btn-primary">Détail</a>
                 <?php if(Securite::isConnected()){ ?>
                     <a href="index.php?action=ajouter-mes-formations&id=<?php echo $formation->getid(); ?>" class="btn btn-success">S'inscrire</a>

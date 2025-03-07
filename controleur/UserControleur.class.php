@@ -14,12 +14,16 @@ class UserControleur {
         require "vue/register.view.php";
     }
     
+    function creerComptePart(){
+        require "vue/registerPart.view.php";
+    }
+    
     function creerEtudiantValidation($login,$mail,$password, $nom, $prenom){
         $cle = uniqid();
         $this->sendMailUser($login, $mail,$cle);
         $hash = password_hash($password, PASSWORD_DEFAULT);
         echo "hash=".$hash."<br>";
-        $user=new Utilisateur($login, $hash, $mail, $nom, $prenom, "Etudiant", "public/images/etudiant.png", 0);
+        $user=new Utilisateur($login, $hash, $mail, $nom, $prenom, "Etudiant", "etudiant.png", 0);
         $this->userDao->creerUser($user, $cle);
         $_SESSION['message'] = "Votre compte a été créé avec succès ! Veuillez vérifier votre email pour l'activer.";
         header("Location: index.php?action=login");
@@ -30,10 +34,10 @@ class UserControleur {
         $this->sendMailUser($login, $mail,$cle);
         $hash = password_hash($password, PASSWORD_DEFAULT);
         echo "hash=".$hash."<br>";
-        $user=new Utilisateur($login, $hash, $mail, $nom, $prenom, "Partenaire", "public/images/partenaire.png", 0);
+        $user=new Utilisateur($login, $hash, $mail, $nom, $prenom, "Partenaire", "partenaire.png", 0);
         $this->userDao->creerUser($user, $cle);
         $_SESSION['message'] = "Le compte partenaire a été créé avec succès ! Veuillez vérifier l'email indiqué pour l'activer.";
-        header("Location: index.php?action=login");
+        header("Location: index.php?action=administrer-utilisateur");
     }
     
     private function sendMailUser($login, $mail, $cle) {
@@ -115,7 +119,7 @@ class UserControleur {
     }
     
     function administrerUtilisateur(){
-        if(Securite::verifAccessAdmin()){
+        if(adSecurite::verifAccessAdmin()){
             $users = $this->userDao->findAllUser();
             require "vue/administrerUtilisateur.view.php";
         }
@@ -138,6 +142,31 @@ class UserControleur {
         else {
             require "vue/afficherProfil.view.php";
         }
+    }
+    
+    function modifierCompte($login, $password, $mail, $nom, $prenom, $role, $image, $est_valide) {
+        if (!Securite::isConnected()) {
+            throw new Exception("Vous devez être connecté pour modifier votre compte.");
+        }
+
+        $user = $this->userDao->findUserByLogin($login);
+        if (!$user) {
+            throw new Exception("Utilisateur non trouvé.");
+        }
+
+        $success = $this->userDao->modifierUser($login, $password, $mail, $nom, $prenom, $role, $image, $est_valide);
+
+        if ($success) {
+            $_SESSION['message'] = "Le compte a été modifié avec succès.";
+        } else {
+            $_SESSION['message'] = "Une erreur est survenue lors de la modification.";
+        }
+
+        header("Location: index.php?action=administrer-utilisateur");
+    }
+    
+    function modifierUser() {
+        require "vue/modifierUser.view.php";
     }
     
 }

@@ -2,6 +2,7 @@
 require_once "Connexion.class.php";
 require_once "Formation.class.php";
 require_once "PartenaireDao.class.php";
+require_once "outil/Outils.class.php";
 
 
 class FormationDao extends Connexion {
@@ -24,14 +25,16 @@ class FormationDao extends Connexion {
     }
     
     function findAllFormation(){
+        //echo " DAO";
         $stmt = $this->getBdd()->prepare("SELECT * FROM formation");
         $stmt->execute();
         $bddFormations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        //Outils::afficherTableau($bddFormations, "formations");
         $stmt->closeCursor();
         foreach($bddFormations as $formation){
-            //$fichiers = is_array($formation['fichiers']) ? implode(',', $formation['fichiers']) : $formation['fichiers'];
+            //echo "idpart:".$formation['IdPart'];
             $f=new Formation($formation['id'], $formation['nom'], $formation['type'], $formation['description'], $formation['contenu'], $formation['duree'], $formation['niveau'], $formation['mode'], $formation['image'], $formation['fichiers']);
-            $partenaire = $this->partenaireDao->findPartenaireByIdPart($formation['partenaire_id']);
+            $partenaire = $this->partenaireDao->findPartenaireByIdPartenaire($formation['IdPart']);
             $f->setPartenaire($partenaire);
             $formations[]=$f;
         }
@@ -47,7 +50,7 @@ class FormationDao extends Connexion {
         //echo "id=".$id."<br>";
         $f=new Formation($formation['id'], $formation['nom'], $formation['type'],$formation['description'], $formation['contenu'],$formation['duree'], $formation['niveau'], $formation['mode'], $formation['image'], $formation['fichiers']);
         
-        $partenaire = $this->partenaireDao->findPartenaireByIdPart($formation['partenaire_id']);
+        $partenaire = $this->partenaireDao->findPartenaireByIdPartenaire($formation['IdPart']);
         $f->setPartenaire($partenaire);
         
         
@@ -67,11 +70,11 @@ class FormationDao extends Connexion {
         }
     }
     
-    function creerFormation($nom, $type, $description, $contenu, $duree, $niveau, $mode, $image, $fichiers){
+    function creerFormation($nom, $type, $description, $contenu, $duree, $niveau, $mode, $image, $fichiers, $IdPart){
         echo("DAO");
         $pdo = $this->getBdd();
-        $req= "INSERT INTO formation(nom, type, description, contenu, duree, niveau, mode, image, fichiers)
-               values (:nom, :type ,:description, :contenu, :duree, :niveau, :mode, :image, :fichiers)";
+        $req= "INSERT INTO formation(nom, type, description, contenu, duree, niveau, mode, image, fichiers, IdPart)
+               values (:nom, :type ,:description, :contenu, :duree, :niveau, :mode, :image, :fichiers, :IdPart)";
         $stmt = $pdo->prepare($req);
         $stmt->bindValue(":nom",$nom,PDO::PARAM_STR);
         $stmt->bindValue(":type",$type,PDO::PARAM_STR);
@@ -82,6 +85,7 @@ class FormationDao extends Connexion {
         $stmt->bindValue(":mode", $mode, PDO::PARAM_STR);
         $stmt->bindValue(":image",$image,PDO::PARAM_STR);
         $stmt->bindValue(":fichiers",$fichiers,PDO::PARAM_STR);
+        $stmt->bindValue(":IdPart",$IdPart,PDO::PARAM_STR);
         $resultat = $stmt->execute();
         $stmt->closeCursor();
         if($resultat > 0){
@@ -89,6 +93,40 @@ class FormationDao extends Connexion {
         } 
     }
     
+    public function findFormationsByPartenaire($IdPart){
+        $stmt = $this->getBdd()->prepare(
+              "SELECT * FROM formation WHERE IdPart = :IdPart"
+        );
+        $stmt->bindValue(":IdPart", $IdPart, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        $formationListBd = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        //Outils::afficherTableau($formationListBd, "formationListBd");
+        if(!empty($formationListBd)) {
+            $formationList = [];
+            foreach ($formationListBd as $formationBd) {
+                $formation = new Formation(
+                $formationBd['id'],
+                $formationBd['nom'], 
+                $formationBd['type'], 
+                $formationBd['description'], 
+                $formationBd['contenu'],
+                $formationBd['duree'],
+                $formationBd['niveau'],
+                $formationBd['mode'],        
+                $formationBd['image'], 
+                $formationBd['fichiers'], 
+                $formationBd['IdPart']
+            );
+            $formation->setId($formationBd['id']);
+            $formationList[] = $formation;
+            }
+            return $formationList;
+        } else {
+            return null;
+        }
+    }
     
 }
 

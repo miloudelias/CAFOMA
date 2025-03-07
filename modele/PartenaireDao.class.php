@@ -27,25 +27,45 @@ class PartenaireDao extends Connexion {
         foreach($partenaireListBd as $partenaireBd){
             $partenaire = new Partenaire($partenaireBd['nom'], $partenaireBd['description']);
             //echo "FormationDao - findAllFormation - f=".$f." formation[idFormation]=".$formation['idFormation']."<br>";
-            $partenaire->setIdPart($partenaireBd['idPart']);
+            $partenaire->setIdPartenaire($partenaireBd['idPartenaire']);
             $partenaireList[]=$partenaire;
         }
         return $partenaireList;
     }
     
-    function findPartenaireByIdPart($idPart){ 
-        //echo "idPart=".$idPart."<br>";
+    function findPartenaireByIdPartenaire($idPartenaire){ 
+        //echo "idPartenaire=".$idPartenaire."<br>";
         $stmt = $this->getBdd()->prepare(
-            "SELECT * FROM partenaire WHERE idPart = :idPart");
-        $stmt->bindValue(":idPart",$idPart,PDO::PARAM_INT);
+            "SELECT * FROM partenaire WHERE idPartenaire = :idPartenaire");
+        $stmt->bindValue(":idPartenaire",$idPartenaire,PDO::PARAM_INT);
         $nb = $stmt->execute();
         //echo "nb=".$nb."<br>";
         $partenaireBd = $stmt->fetch(PDO::FETCH_ASSOC);
-        $stmt->closeCursor();  
-        //Outils::afficherTableau($partenaireBd, "findPartenaireByIdPart partenaireBd");
+        $stmt->closeCursor();
+        if ($partenaireBd) {
+       // Outils::afficherTableau($partenaireBd, "findPartenaireByIdPartenaire partenaireBd");
         $partenaire = new Partenaire($partenaireBd['nom'], $partenaireBd['description']);
-        $partenaire->setIdPart($partenaireBd['idPart']);
+        $partenaire->setIdPartenaire($partenaireBd['idPartenaire']);
         return $partenaire;
+        } else {
+        // Gérer le cas où aucun partenaire n'est trouvé
+        throw new Exception("Partenaire non trouvé pour l'id: $idPartenaire");
     }
-          
+    }
+    
+    public function creerPartenaire($nom, $description){
+        $pdo = $this->getBdd();
+        $req = "INSERT INTO partenaire (nom, description)
+                values (:nom, :description)";
+        
+        $stmt = $pdo->prepare($req);
+        $stmt->bindValue(":nom",$nom,PDO::PARAM_STR);
+       $stmt->bindValue(":description",$description,PDO::PARAM_STR);
+        $resultat= $stmt->execute();
+        $stmt->closeCursor();
+        if($resultat > 0){
+            echo "partenaire insérer id=".$pdo->lastInsertId()."<br>";
+        }
+    }
+    
 }
