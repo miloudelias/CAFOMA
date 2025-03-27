@@ -1,13 +1,15 @@
 <?php
 require_once "modele/UtilisateurDao.class.php";
+require_once "modele/PartenaireDao.class.php";
 require_once "outil/Securite.class.php";
 
 class UserControleur {
     private $userDao;
+    private $partenaireDao;
     
     public function __construct() {
         $this->userDao = UtilisateurDao::getInstance();
-        
+        $this->partenaireDao = PartenaireDao::getInstance();
     }
     
     function creerCompte(){
@@ -15,7 +17,11 @@ class UserControleur {
     }
     
     function creerComptePart(){
-        require "vue/registerPart.view.php";
+        if(Securite::verifAccessAdmin()){
+            $partenaireList = $this->partenaireDao->findAllPartenaire();
+            require "vue/registerPart.view.php";
+        }
+        else throw new Exception("Vous n'avez pas le droit d'accéder à cette page");
     }
     
     function creerEtudiantValidation($login,$mail,$password, $nom, $prenom){
@@ -29,12 +35,12 @@ class UserControleur {
         header("Location: index.php?action=login");
     }
     
-    function creerPartenaireValidation($login,$mail,$password, $nom, $prenom){
+    function creerPartenaireValidation($login,$mail,$password, $nom, $prenom, $idPart){
         $cle = uniqid();
         $this->sendMailUser($login, $mail,$cle);
         $hash = password_hash($password, PASSWORD_DEFAULT);
         echo "hash=".$hash."<br>";
-        $user=new Utilisateur($login, $hash, $mail, $nom, $prenom, "Partenaire", "partenaire.png", 0);
+        $user=new Utilisateur($login, $hash, $mail, $nom, $prenom, "Partenaire", "partenaire.png", 0, $idPart);
         $this->userDao->creerUser($user, $cle);
         $_SESSION['message'] = "Le compte partenaire a été créé avec succès ! Veuillez vérifier l'email indiqué pour l'activer.";
         header("Location: index.php?action=administrer-utilisateur");
@@ -105,8 +111,12 @@ class UserControleur {
     }
     
     function afficherProfil() {
+        if(Securite::isConnected()) {
         $user = $this->userDao->findUserByLogin($_SESSION['login']);
         require "vue/afficherProfil.view.php";
+        } else {
+            throw new Exception ("Vous n'êtes pas connecté, il est donc impossible de voir votre profil");   
+        }
     }
     
     function logout(){
@@ -114,12 +124,13 @@ class UserControleur {
             unset($_SESSION['role']);
             unset($_SESSION['nom']);
             header("Location : index.php");
-        }
-        else throw new Exception ("Vous n'êtes pas connecté, il est donc impossible de vous délogger");
+        } else{
+            throw new Exception ("Vous n'êtes pas connecté, il est donc impossible de vous délogger");
+        }    
     }
     
     function administrerUtilisateur(){
-        if(adSecurite::verifAccessAdmin()){
+        if(Securite::verifAccessAdmin()){
             $users = $this->userDao->findAllUser();
             require "vue/administrerUtilisateur.view.php";
         }

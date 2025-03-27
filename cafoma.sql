@@ -32,16 +32,26 @@ CREATE TABLE Utilisateur (
     role VARCHAR(100) NOT NULL,
     image VARCHAR(255),
     est_valide tinyint(1) NOT NULL,
-    clef varchar(50) 
+    clef varchar(50),
+    idPart INT,
+    FOREIGN KEY (idPart) REFERENCES Partenaire(idPart) ON DELETE SET NULL
 );
 
 CREATE TABLE Inscription (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    utilisateur_login VARCHAR(50),
-    formation_id INT,
-    date_inscription DATETIME DEFAULT CURRENT_TIMESTAMP,
+    idInscription INT AUTO_INCREMENT PRIMARY KEY,
+    login VARCHAR(50),
+    idFormation INT,
+    dateInscription DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (utilisateur_login) REFERENCES Utilisateur(login) ON DELETE CASCADE,
     FOREIGN KEY (formation_id) REFERENCES Formation(id) ON DELETE CASCADE
+);
+
+CREATE TABLE Ressources (
+    idRessource INT AUTO_INCREMENT PRIMARY KEY,
+    nomFichier VARCHAR(255) NOT NULL,
+    typeFichier VARCHAR(100) NOT NULL,
+    idFormation INT NOT NULL,
+    FOREIGN KEY (idFormation) REFERENCES formation(id) ON DELETE CASCADE
 );
 
 INSERT INTO Partenaire (nom, description) VALUES

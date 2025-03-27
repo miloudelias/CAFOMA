@@ -6,9 +6,7 @@ require_once "./outil/Outils.class.php";
 class PartenaireDao extends Connexion {
     private static $_instance = null;
     
-    private function __construct() {
-
-    }
+    private function __construct() {}
     
     public static function getInstance() {
         if(is_null(self::$_instance)){
@@ -68,4 +66,36 @@ class PartenaireDao extends Connexion {
         }
     }
     
+     function modifierPartenaire($idPartenaire, $nom, $description){
+            $pdo = $this->getBdd();
+            $req = "UPDATE partenaire
+                    SET nom = :nom, description = :description
+                    WHERE idPartenaire = :idPartenaire";
+            $stmt = $pdo->prepare($req);
+            $stmt->bindValue(":idPartenaire", $idPartenaire, PDO::PARAM_INT);
+            $stmt->bindValue(":nom", $nom, PDO::PARAM_STR);
+            $stmt->bindValue(":description", $description, PDO::PARAM_STR);
+
+            $resultat = $stmt->execute();
+            $stmt->closeCursor();
+
+            if($resultat > 0){
+                echo "partenaire modifier id=".$id."<br>";
+            }
+    }
+    
+    function supprimerPartenaire($idPartenaire){
+        $pdo = $this->getBdd();
+        
+        $req = "Delete from formation where idPartenaire = :idPartenaire";
+        $stmt = $pdo->prepare($req);
+        $stmt->bindValue(":idPartenaire",$idPartenaire,PDO::PARAM_INT);
+        $resultat = $stmt->execute();
+        $stmt->closeCursor();
+        if($resultat > 0){
+            echo "partenaire supprimer id=".$id."<br>";
+        }
+    }
+    
+        
 }

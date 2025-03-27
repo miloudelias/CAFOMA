@@ -26,6 +26,7 @@
                 <th scope="col">Rôle</th>
                 <th scope="col">Valide</th>
                 <th scope="col">Mot de passe hashé</th>
+                <th scope="col">Partenaire</th> 
                 <th scope="col">Actions</th>
             </tr>
         </thead>
@@ -39,6 +40,7 @@
                     <td><?= $user->getRole(); ?></td>
                     <td><?= $user->getEstValide() ? "Oui" : "Non"; ?></td>
                     <td><?= $user->getPassword(); ?></td>
+                    <td><?= $user->getIdPart(); ?> </td>
                     <td>
                             <a href="index.php?action=modifier-user&user=<?= urlencode($user->getLogin()); ?>" 
                                 class="btn btn-warning">

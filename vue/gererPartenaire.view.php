@@ -25,7 +25,7 @@
                 <td><?= htmlspecialchars($partenaire->getNom()); ?></td>
                 <td><?= htmlspecialchars($partenaire->getDescription()); ?></td>
                 <td>
-                    <a href="index.php?action=afficher-partenaire&idPartenaire=<?= urlencode($partenaire->getIdPartenaire()); ?>" 
+                    <a href="index.php?action=voir-partenaire&idPartenaire=<?= urlencode($partenaire->getIdPartenaire()); ?>" 
                        class="btn btn-info">
                        Voir
                     </a>

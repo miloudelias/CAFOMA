@@ -10,11 +10,12 @@ class Formation implements JsonSerializable {
     private $niveau;
     private $mode;
     private $image;
-    private $fichiers;
+    //private $fichiers;
+    private $ressources;
     private $partenaire;
    
     
-    public function __construct($id, $nom, $type, $description, $contenu, $duree, $niveau, $mode, $image, $fichiers) {
+    public function __construct($id, $nom, $type, $description, $contenu, $duree, $niveau, $mode, $image, $ressources = []) {
         $this->id = $id;
         $this->nom = $nom;
         $this->type = $type;
@@ -24,7 +25,8 @@ class Formation implements JsonSerializable {
         $this->niveau = $niveau;
         $this->mode = $mode;
         $this->image = $image;
-        $this->fichiers = $fichiers;
+        //$this->fichiers = $fichiers;
+        $this->ressources = $ressources;
     }
     
     public function __toString(): string {
@@ -37,7 +39,8 @@ class Formation implements JsonSerializable {
                 . ", niveau=" . $this->niveau
                 . ", mode=" . $this->mode
                 . ", image=" . $this->image
-                . ", fichiers=" . $this->fichiers
+                //. ", fichiers=" . $this->fichiers
+                . ", ressources=" . $this->ressources
                 . ", partenaire=" . $this->partenaire->getNom()
                 . "]";
     }
@@ -54,7 +57,8 @@ class Formation implements JsonSerializable {
             'niveau' => $this->niveau,
             'mode' => $this->mode,
             'image' => $this->image,
-            'fichiers' => $this->fichiers,
+            //'fichiers' => $this->fichiers,
+            'ressources' => $this->ressources,
             'nomPartenaire' => $this->partenaire->getNom(),
             'idPart' => $this->partenaire->getIdPartenaire()        
         ];
@@ -84,9 +88,9 @@ class Formation implements JsonSerializable {
         return $this->contenu;
     }
 
-    public function getFichiers() {
+    /*public function getFichiers() {
         return $this->fichiers;
-    }
+    }*/
 
     public function getPartenaire() {
         return $this->partenaire;
@@ -112,9 +116,9 @@ class Formation implements JsonSerializable {
         $this->image = $image;
     }
 
-    public function setFichiers($fichiers){
+    /*public function setFichiers($fichiers){
         $this->fichiers = $fichiers;
-    }
+    }*/
     
     public function setContenu ($contenu) {
         $this->contenu = $contenu;
@@ -146,6 +150,14 @@ class Formation implements JsonSerializable {
 
     public function setMode($mode) {
         $this->mode = $mode;
+    }
+
+    public function getRessources() {
+        return $this->ressources;
+    }
+
+    public function setRessources($ressources){
+        $this->ressources = $ressources;
     }
 
 

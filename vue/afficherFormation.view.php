@@ -13,10 +13,8 @@ ob_start();
         <h3>Type de formation : <?php echo $formation->getType(); ?></h3>
         <br>
         
-        <h3>Partenaire :
-            <a href="index.php?action=afficher-partenaire&idPart=<?php $formation->getPartenaire()->getIdPart(); ?>">
-                <?php echo $formation->getPartenaire()->getNom(); ?>
-            </a>
+         <h3>Partenaire :
+            <a href="index.php?action=afficher-partenaire&idPart=<?php echo $formation->getPartenaire()->getIdPartenaire(); ?>"><?= $formation->getPartenaire()->getNom(); ?></a>
         </h3>
         <br>
         

@@ -9,8 +9,9 @@ class Utilisateur {
     private $role;
     private $image;
     private $estValide;
+    private $idPart;
     
-    function __construct($login, $password, $mail, $nom, $prenom, $role, $image, $estValide) {
+    function __construct($login, $password, $mail, $nom, $prenom, $role, $image, $estValide, $idPart =  NULL) {
         $this->login = $login;
         $this->password = $password;
         $this->mail = $mail;
@@ -19,6 +20,7 @@ class Utilisateur {
         $this->role = $role;
         $this->image = $image;
         $this->estValide = $estValide;
+        $this->idPart = $idPart;
     }
     
     public function __toString(): string {
@@ -30,6 +32,7 @@ class Utilisateur {
                 . ", role=" . $this->role
                 . ", image=" . $this->image
                 . ", estValide=" . $this->estValide
+                . ", idPart=" . $this->idPart
                 . "]";
     }
     
@@ -95,6 +98,14 @@ class Utilisateur {
 
     public function setEstValide($estValide): void {
         $this->estValide = $estValide;
+    }
+
+    public function getIdPart() {
+        return $this->idPart;
+    }
+
+    public function setIdPart($idPart): void {
+        $this->idPart = $idPart;
     }
 
 

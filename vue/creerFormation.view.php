@@ -4,6 +4,8 @@ ob_start();
 
 <form method="POST" action="index.php?action=creer-formation-validation" enctype="multipart/form-data" class="p-4 shadow rounded bg-light">
     <h2 class="text-center mb-4">Créer une nouvelle formation</h2>
+    
+    <p>Veuillez pensez à sélectionner votre Etablissement auquel vous êtes affilié. </p>
 
     <div class="mb-3">
         <label class="form-label" for="nom">Nom de la formation :</label>
@@ -53,8 +55,8 @@ ob_start();
     </div>
 
     <div class="mb-3">
-        <label class="form-label" for="fichiers">Fichiers (PDF, ressources) :</label>
-        <input class="form-control" type="file" id="fichiers" name="fichiers[]" multiple accept=".pdf,.doc,.docx,.zip,.mp4" multiple>
+        <label class="form-label" for="fichiers">Ressources (PDF, ZIP, MP4) :</label>
+        <input class="form-control" type="file" id="ressources" name="ressources[]" multiple accept=".pdf,.doc,.docx,.zip,.mp4" multiple>
     </div>
 
     <div class="mb-3">

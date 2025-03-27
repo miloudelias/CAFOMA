@@ -36,7 +36,7 @@
                     <?php if(!Securite::isConnected()){ //si user est pas connecté ?>
                     <a class="nav-link disabled" aria-disabled="true">Mes formations suivies</a>
                     <?php } else { //si il est connecté ?>
-                    <a class="nav-link" href="index.php?action=afficher-formations">Mes formations suivies</a> 
+                    <a class="nav-link" href="index.php?action=lister-inscriptions">Mes formations suivies</a> 
                     <?php }?> 
                 </li>
                 <li class="nav-item">
@@ -48,7 +48,7 @@
                 </li>
                 <?php if(Securite::verifAccessPartenaire()|| Securite::verifAccessAdmin()){ //is user est un partenaire ou admin?>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php?action=administrer-formations">Administrer mes formations</a>
+                        <a class="nav-link" href="index.php?action=admin-formations-part">Administrer mes formations</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?action=creer-formation">Créer formation</a>
@@ -81,6 +81,12 @@
 
 <div class="container">
         <h2><?php echo $titre ?></h2>
+        <?php if (isset($_SESSION['alert'])): ?>
+            <div class="alert alert-success">
+             <?= htmlspecialchars($_SESSION['alert']); ?>
+            </div>
+         <?php unset($_SESSION['alert']); ?>
+        <?php endif; ?>
         <?php echo $content ?>
     </div>
    

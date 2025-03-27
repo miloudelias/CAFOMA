@@ -23,7 +23,20 @@ class PartenaireControleur {
         } catch (Exception $ex) {
             echo "Erreur : " . $ex->getMessage();
         }
+    }
+    
+    public function voirPartenaire($idPartenaire){
+        //echo "Controleur ";
+        try {
+            $partenaire = $this->partenaireDao->findPartenaireByIdPartenaire($idPartenaire);
+            $formationList = $this->formationDao->findFormationsByPartenaire($idPartenaire);
+            //Outils::afficherTableau($formationList, "formations");
+            require "vue/voirPartenaire.view.php";
+        } catch (Exception $ex) {
+            echo "Erreur : " . $ex->getMessage();
+        }
     }  
+
     
     function creerPartenaire(){
         require "vue/creerPartenaire.view.php";
@@ -47,6 +60,28 @@ class PartenaireControleur {
         else { 
             throw new Exception("Vous n'avez pas le droit d'accéder à cette page");
         }    
+    }
+    
+    function modifierPartenaire($idPartenaire){
+        if(Securite::verifAccessAdmin()){
+            $partenaire= $this->partenaireDao->findPartenaireByIdPartenaire($idPartenaire);
+            //Outils::afficherTableau($partenaire, "modif partenaire controleur");
+            require "vue/modifierPartenaire.view.php";
+        }
+        else throw new Exception("Vous n'avez pas le droit d'accéder à cette page");
+    }
+    
+    function modifierPartenaireValidation($idPartenaire, $nom, $description){
+        if(Securite::verifAccessAdmin()){
+            Outils::afficherTableau($_POST, "POST");
+            echo "Modifier VALIDATION PARTENAIRE id<br>";
+        $this->partenaireDao->modifierPartenaire($idPartenaire, $nom, $description);
+
+        $_SESSION['success_message'] = "Le partenaire '$nom' a été mise à jour avec succès !";
+        header("Location: index.php?action=gerer-partenaire");
+        exit;  
+        }
+        else throw new Exception ("Vous n'avez pas les droits nécessaires");
     }
     
 }

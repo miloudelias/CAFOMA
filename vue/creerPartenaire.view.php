@@ -17,7 +17,7 @@ ob_start();
     
     
     <div class="text-center">
-        <button class="btn btn-success px-4" type="submit" name="form_ajouter">Créer la formation</button>
+        <button class="btn btn-success px-4" type="submit" name="form_ajouter">Créer le partenaire</button>
     </div>
 </form>
 

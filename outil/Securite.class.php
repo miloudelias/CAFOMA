@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Description of Securite
- *
- * @author elias
- */
-
 class Securite {
     public static function verifAccessAdmin(){
         return (isset($_SESSION['role']) && !empty($_SESSION['role']) && $_SESSION['role'] === "Admin");
